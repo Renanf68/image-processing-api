@@ -7,7 +7,7 @@ import images from './api/images';
 const routes = express.Router();
 
 routes.get('/', (req, res) => {
-  res.send('main api router');
+  res.sendStatus(200);
 });
 
 routes.use('/images', images);

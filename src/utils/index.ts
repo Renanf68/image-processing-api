@@ -26,10 +26,11 @@ export const resizeImage = async (
 };
 
 export const getProcessedImage = async (
-  filename: string,
-  width: string,
-  height: string
+  filename?: string,
+  width?: string,
+  height?: string
 ): Promise<string | null> => {
+  if (!filename) return null;
   // dimensions
   const widthInt = width ? parseInt(width) : 200;
   const heightInt = height ? parseInt(height) : 200;
@@ -40,8 +41,8 @@ export const getProcessedImage = async (
     '../assets/thumb',
     `${filename}_thumb.jpg`
   );
-  // cached
   try {
+    // cache
     const isCached = await fileExists(outputFilePath);
     console.log('isCached: ', isCached);
     if (isCached) {

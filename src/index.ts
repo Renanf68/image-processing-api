@@ -2,10 +2,6 @@
 import express from 'express';
 import routes from './routes';
 
-// scripts that should be available
-// test
-// node dist/index (on serve?)
-
 const app = express();
 const port = 3000;
 
