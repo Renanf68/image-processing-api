@@ -44,7 +44,7 @@ export const getProcessedImage = async (
   try {
     // cache
     const isCached = await fileExists(outputFilePath);
-    console.log('isCached: ', isCached);
+    // console.log('isCached: ', isCached);
     if (isCached) {
       return outputFilePath;
     }
