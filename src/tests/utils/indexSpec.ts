@@ -6,10 +6,14 @@ const testOutputPath = path.join(
   __dirname,
   '../../assets/thumb/fjord_thumb.jpg'
 );
+const placeholderPath = path.join(
+  __dirname,
+  '../../assets/thumb/not_found_thumb.jpg'
+);
 
 describe('Test utils functions', () => {
   it('fileExists return true when file exists', async () => {
-    const exists = await fileExists(testOutputPath);
+    const exists = await fileExists(placeholderPath);
     expect(exists).toBe(true);
   });
   it('resizeImage return correct infos', async () => {
@@ -26,6 +30,6 @@ describe('Test utils functions', () => {
   it('getProcessedImage return correct image path', async () => {
     const response = await getProcessedImage('fjord', '200', '200');
     const pathEnd = response?.split('/dist')[1];
-    expect(pathEnd).toEqual('/assets/thumb/fjord_thumb.jpg');
+    expect(pathEnd).toEqual('/assets/thumb/fjord_thumb_200x200.jpg');
   });
 });
