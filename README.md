@@ -15,6 +15,12 @@ cd image-processing-api && npm install
 npm run start
 ```
 
+The endpoint format is:
+
+```bash
+http://localhost:3000/api/images?filename=fjord&width=200&height=200
+```
+
 ## 3. Build and serve
 
 ```bash
