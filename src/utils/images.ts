@@ -2,6 +2,12 @@ import path from 'path';
 import { promises as fsPromises } from 'fs';
 import sharp from 'sharp';
 
+const placeholderPath = path.join(
+  __dirname,
+  '../assets/thumb',
+  'not_found_thumb.jpg'
+);
+
 export const fileExists = async (path: string): Promise<boolean> => {
   try {
     await fsPromises.readFile(path);
@@ -16,12 +22,14 @@ export const resizeImage = async (
   width: number,
   height: number,
   outputPath: string
-): Promise<sharp.OutputInfo | null> => {
+): Promise<sharp.OutputInfo | string> => {
   try {
     const process = sharp(inputPath).resize(width, height);
     return process.toFile(outputPath);
   } catch (error) {
-    return null;
+    console.log(error);
+    // return image placeholder with message 'image not found'
+    return placeholderPath;
   }
 };
 
@@ -39,20 +47,20 @@ export const getProcessedImage = async (
   const outputFilePath = path.join(
     __dirname,
     '../assets/thumb',
-    `${filename}_thumb.jpg`
+    `${filename}_thumb_${width}x${height}.jpg`
   );
   try {
-    // cache
-    const isCached = await fileExists(outputFilePath);
-    // console.log('isCached: ', isCached);
-    if (isCached) {
+    // check if image already exists
+    const imageExists = await fileExists(outputFilePath);
+    if (imageExists) {
       return outputFilePath;
     }
-    // resizing
+    // image resizing
     await resizeImage(inputPath, widthInt, heightInt, outputFilePath);
     return outputFilePath;
   } catch (error) {
     console.log(error);
-    return null;
+    // return image placeholder with message 'image not found'
+    return placeholderPath;
   }
 };

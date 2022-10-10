@@ -1,5 +1,5 @@
 import path from 'path';
-import { fileExists, resizeImage, getProcessedImage } from '../../utils';
+import { fileExists, resizeImage, getProcessedImage } from '../../utils/images';
 
 const testInputPath = path.join(__dirname, '../../assets/full/fjord.jpg');
 const testOutputPath = path.join(
