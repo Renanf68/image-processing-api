@@ -10,4 +10,10 @@ describe('Test image endpoint', () => {
     );
     expect(response.type).toBe('image/jpeg');
   });
+  it('Logger sends correct message when query is invalid', async () => {
+    const response = await request.get(
+      '/api/images?filename=fjord&width=AAA&heigth=200'
+    );
+    expect(response.text).toBe('Invalid image dimensions');
+  });
 });
