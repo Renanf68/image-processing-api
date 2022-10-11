@@ -4,7 +4,7 @@ import { ImageQuery } from '../types';
 import { fileExists } from './images';
 
 const logger = (req: Request, res: Response, next: VoidFunction): void => {
-  const checkImageProcessing = async () => {
+  const getImageFromDisck = async () => {
     const { filename, width, height } = req.query as ImageQuery;
     const outputFilePath = path.join(
       __dirname,
@@ -12,10 +12,15 @@ const logger = (req: Request, res: Response, next: VoidFunction): void => {
       `${filename}_thumb_${width}x${height}.jpg`
     );
     const imageExists = await fileExists(outputFilePath);
-    console.log('New image created: ', !imageExists);
+    if (imageExists) {
+      console.log('New image created: ', false);
+      res.sendFile(outputFilePath);
+    } else {
+      console.log('New image created: ', true);
+      next();
+    }
   };
-  checkImageProcessing();
-  next();
+  getImageFromDisck();
 };
 
 export default logger;

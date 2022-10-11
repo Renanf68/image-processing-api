@@ -50,11 +50,6 @@ export const getProcessedImage = async (
     `${filename}_thumb_${width}x${height}.jpg`
   );
   try {
-    // check if image already exists
-    const imageExists = await fileExists(outputFilePath);
-    if (imageExists) {
-      return outputFilePath;
-    }
     // image resizing
     await resizeImage(inputPath, widthInt, heightInt, outputFilePath);
     return outputFilePath;
