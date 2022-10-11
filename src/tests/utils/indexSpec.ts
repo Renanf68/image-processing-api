@@ -1,4 +1,5 @@
 import path from 'path';
+import _ from 'lodash';
 import { fileExists, resizeImage, getProcessedImage } from '../../utils/images';
 
 const testInputPath = path.join(__dirname, '../../assets/full/fjord.jpg');
@@ -18,13 +19,11 @@ describe('Test utils functions', () => {
   });
   it('resizeImage return correct infos', async () => {
     const info = await resizeImage(testInputPath, 200, 200, testOutputPath);
-    expect(info).toEqual({
+    const basicInfo = _.pick(info, ['format', 'width', 'height']);
+    expect(basicInfo).toEqual({
       format: 'jpeg',
       width: 200,
       height: 200,
-      channels: 3,
-      premultiplied: false,
-      size: 6915,
     });
   });
   it('getProcessedImage return correct image path', async () => {

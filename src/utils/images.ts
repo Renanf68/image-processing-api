@@ -1,6 +1,6 @@
 import path from 'path';
 import { promises as fsPromises } from 'fs';
-import sharp from 'sharp';
+import sharp, { OutputInfo } from 'sharp';
 
 const placeholderPath = path.join(
   __dirname,
@@ -22,7 +22,7 @@ export const resizeImage = async (
   width: number,
   height: number,
   outputPath: string
-): Promise<sharp.OutputInfo | string> => {
+): Promise<OutputInfo | string> => {
   try {
     const process = sharp(inputPath).resize(width, height);
     return process.toFile(outputPath);
